@@ -24,6 +24,6 @@ public class 선택조건문 {
 		String b = "난";
 				
 				
-
+k
 	}
 }
