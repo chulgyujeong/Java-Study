@@ -49,7 +49,7 @@ public class 문자열_3 {
 			 *  String s="a"
 			 *  s="b"
 			*/
-          final String s="ABCD가나다라12345";
+          String s="ABCD가나다라12345";
           System.out.println(s.replaceAll("[가-힣]", "0"));
           System.out.println(s.replaceAll("[A-Z]", " "));
           System.out.println(s.replaceAll("[0-9]", " "));
