@@ -248,7 +248,7 @@ public class 클래스의구성요소 {
          A. a  = 10;
          A aa = new A();
          A bb = new A();
-         bb.a = 1000;
+         bb.a = 1000;     
          
 	}
 
