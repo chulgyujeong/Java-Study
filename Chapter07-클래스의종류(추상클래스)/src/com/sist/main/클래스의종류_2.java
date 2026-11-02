@@ -83,7 +83,8 @@ public class 클래스의종류_2 {
 //		// TODO Auto-generated method stub
 //      Scanner scan=new Scanner(System.in);
 //      Calendar cal=Calendar.getInstance();
-		Runnable r=new Runnable() {
+		Runnable r=new Runnable() { 
+		
 			
             @Override     
 			public void run(){
