@@ -235,7 +235,7 @@ public class 클래스의구성요소 {
     	 int a=20;
     	 System.out.println(a+a);
     	 }
-    	 void aaa()
+    	 void aaa() 
     	 {
     		 a=100;
     		 b=200;
