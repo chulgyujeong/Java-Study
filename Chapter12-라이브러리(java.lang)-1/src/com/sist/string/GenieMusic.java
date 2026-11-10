@@ -28,6 +28,7 @@ public class GenieMusic {
     // static{} / 생성자는 한번만 호출 => 재호출이 안된다
 	public void getData(int cno)
      {
+		musics=new MusicVO[50];
 			/*
 			 *  반드시 예외처리 해야되는 클래스
 			 *  ---------------------- CheckedException
@@ -53,6 +54,9 @@ public class GenieMusic {
               Elements poster=doc.select("table.list-wrap a.cover img");
               Elements etc=doc.select("table.list-wrap span.rank span.rank");
               
+              System.out.println("카테고리 번호: " + cno);
+      		System.out.println("제목 개수: " + title.size());
+      		
               for(int i=0;i<title.size();i++)
               {
             	 musics[i]=new MusicVO();
@@ -86,13 +90,18 @@ public class GenieMusic {
     	 }catch(Exception ex) {}
 		// 출력
 		// for-each구문
+		
 		for(MusicVO vo:musics)
 		{
+			if(vo!= null)
+			{
 			System.out.println(vo.getMno()+"."+vo.getTitle());
 			
 		}
-		
+		}
      }
+}
+
 	
     
-}
+
