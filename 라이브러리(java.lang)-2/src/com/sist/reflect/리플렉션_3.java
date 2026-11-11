@@ -1,0 +1,170 @@
+package com.sist.reflect;
+import java.lang.reflect.Method;
+import java.util.*;
+
+import com.sist.annotation.REquestMapping;
+// 사용자 정의 -> 패키지가 다르면 import
+/*
+ *    1. 개념 - 동작원리 - 문법 - 실무사용법
+ *    
+ *      = 리플렉션 : 실행중인 프로그램의 클래스, 변수, 생성자, 메소드
+ *                 정보를 얻어서 직접 조작하는 기술
+ *      = 어노테이션 : 클래스, 변수, 메소드에 @표시 해서 바로 찾을 수 있게 만드는 기술
+ *                   => 인덱스, if문이 추가
+ *                           --------- 기능은 없다(찾기)
+ *         Spring : @Controller / @Service
+ *                  @Autowired / @GetMapping / @RequestMapping
+ *                  => 이미 제작 => 메뉴얼
+ *                  
+ *         Mybatis : @Select @Insert @Update @Delete
+ *      -----------------------------------------------------------------
+ *      동작원리
+ *        리플렉션
+ *         1) 클래스 정보 읽기
+ *            Class.forName("패키지.클래스명") 
+ *         2) 구성 요소 확인
+ *            변수 => Field ==> 이름확인 => getName() / set() / get()
+ *            생성자 => Constructor
+ *                     class A
+ *                     {
+ *                       public A(){}
+ *                       public A(int a, String b){}
+ *                     }
+ *                     
+ *                     Class cls=Class.forName("A")
+ *                     cls.getDeclareConstructor().newInstance()
+ *                     // => 객체 생성
+ *                     // => A()
+ *                     cls.getDeclareConstructor(int.class,String.class).
+ *                     newInstance(1,"")
+ *                     // => public A(int a, String b) 기존 생성자 호출
+ *            메소드 => Method
+ *                    invoke() => 클래스에 있는 모든 메소드를 호출 할 수 있다
+ *                    
+ *            어노테이션 확인
+ *         3) 조작 => 변수값 설정 / 생성자 호출 / 메소드 호출
+ *         4) 실행
+ *            
+ * 
+*/
+class Board
+{
+	/*
+	 * 
+	 *     ----------- 변수 : 여러개
+	 *      Field f=getDeclaredField("변수명")
+	 *      String name,address,phone...
+	 *      Field[] f=getDeclaredFields()
+	 *      ---------- 생성자 : 여러개
+	 *      ---------- 메소드 : 여러개
+	 *      Method m=getDeclaredMethod("변수명")
+	 *      Method[] m=getDeclaredMethods()
+	 * 
+	*/
+	@REquestMapping("1")
+	public void list()
+	{
+	       System.out.println("게시판 목록 요청");	
+	}
+	@REquestMapping("2")
+	public void insert()
+	{
+		System.out.println("게시물 추가 요청");	
+	}
+	@REquestMapping("3")
+	public void detail()
+	{
+		System.out.println("게시판 상세보기 요청");	
+	}
+	@REquestMapping("4")
+	public void update()
+	{
+		System.out.println("게시물 수정 요청");	
+	}
+	@REquestMapping("5")
+	public void delete()
+	{
+		System.out.println("게시물 삭제 요청");	
+	}
+	@REquestMapping("6")
+	public void find()
+	{
+		System.out.println("게시물 검색 요청");	
+	}
+	@REquestMapping("8")
+	public void reply()
+	{
+		System.out.println("게시물 댓글 달기");
+	}
+}
+public class 리플렉션_3 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+   Board board=new Board();
+   Scanner scan=new Scanner(System.in);
+   while(true)
+   {
+	   System.out.println("============ 메뉴 ===============");
+	   System.out.println("1. 목록요청");
+	   System.out.println("2. 글쓰기");
+	   System.out.println("3. 상세보기");
+	   System.out.println("4. 수정하기");
+	   System.out.println("5. 삭제하기");
+	   System.out.println("6. 검색");
+	   System.out.println("7. 종료");
+	   System.out.println("===============================");
+	   System.out.println("메뉴 선택:");
+	   int menu=scan.nextInt();
+	   if(menu==7)
+	   {
+		   System.out.println("프로그램 종료");
+		   System.exit(0);
+	   }
+//	   else if(menu==1)
+//	   {
+//		   board.list();
+//	   }
+//	   else if(menu==2)
+//	   {
+//		   board.insert();
+//	   }
+//	   else if(menu==3)
+//	   {
+//		   board.detail();
+//	   }
+//	   else if(menu==4)
+//	   {
+//		   board.update();
+//	   }
+//	   else if(menu==5)
+//	   {
+//		   board.delete();
+//	   }
+//	   else if(menu==6)
+//	   {
+//		   board.find();
+//	   }
+   try
+   {
+	   //1. class 읽기
+	   Class clsName=Class.forName("com.sist.reflect.Board");
+	   //2. 메모리 할당
+	   Object obj=clsName.getDeclaredConstructor().newInstance();
+	   // Board obj=new Board()
+	   //3. Method 전체읽기
+	   Method[] methods=clsName.getDeclaredMethods();
+	   //4. Method위에 있는 @REquestMapping 찾기
+	   for(Method m:methods)
+	   {
+		   REquestMapping rm=m.getAnnotation(REquestMapping.class);
+		   if(rm.value().equals(String.valueOf(menu)))
+				   {
+			           m.invoke(obj, null);
+				   }
+	   }
+   }catch(Exception ex) {}
+   }
+	}
+
+}
