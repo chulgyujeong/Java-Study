@@ -11,7 +11,7 @@ public class UserMain {
         // => 변수가 있는 경우 : 추상 클래스 => 인터페이스는 상수만 가지고 있다
         // 추상 => 공통으로 가지고 있는
         if(select==1)
-        {
+        {  
         	 ms=new GenieMusic();
         	 ms.dataCollection();
         }
