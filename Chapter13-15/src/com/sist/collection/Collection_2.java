@@ -40,7 +40,7 @@ public class Collection_2 {
              list.add(4); // 1
              list.add(8); // 2
              list.add(7); // 3
-             list.add(9); // 4
+             list.add(9); // 4   
              list.add(1); // 5
              list.add(2); // 6
              list.add(6); // 7
